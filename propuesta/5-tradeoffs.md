@@ -132,14 +132,14 @@ gantt
 ```yaml
 ECS Service Configuration:
   Min Tasks: 1
-  Max Tasks: 20  
+  Max Tasks: 8  
   Target CPU: 70%
   Target Memory: 80%
   
 Scaling Policies:
   Scale Out:
     - Trigger: CPU > 70% for 2 minutes
-    - Action: Add 2 tasks (max 20)
+    - Action: Add 2 tasks (max 8)
     - Cooldown: 300 seconds
     
   Scale In:  
@@ -157,10 +157,10 @@ Custom Metrics:
 
 | **Function** | **Reserved Concurrency** | **Provisioned** | **Justificación** |
 |-------------|-------------------------|-----------------|-------------------|
-| **ValidateFile** | 100 | 5 | High frequency, low latency required |
-| **ProcessCAD** | 50 | 0 | CPU intensive, controlled parallelism |  
-| **ProcessMedia** | 200 | 10 | High volume, fast processing |
-| **SyncHandler** | 20 | 2 | Occasional, user-facing |
+| **ValidateFile** | 50 | 3 | High frequency, low latency required - 5K uploads/día baseline |
+| **ProcessCAD** | 25 | 0 | CPU intensive, controlled parallelism - CAD files ~20% del volumen |  
+| **ProcessMedia** | 75 | 5 | High volume, fast processing - Imágenes ~80% del volumen |
+| **SyncHandler** | 15 | 2 | Occasional, user-facing - Real-time sync capability |
 
 ### **Database Scaling Strategy**
 
